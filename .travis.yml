@@ -9,6 +9,14 @@ node_js:
   - '10'
   - '11'
 
+cache:
+  # cache both npm modules and Cypress binary
+  directories:
+    - ~/.npm
+    - ~/.cache
+#  override:
+#     - npm ci
+#     - npm run cy:verify
 services:
   - mongodb
 
@@ -27,7 +35,6 @@ install:
 
 before_script:
   - git fetch origin master:master
-  - npm install
 
 script:
   # - npm run lint
