@@ -6,7 +6,6 @@ const cypress = require('cypress');
 const { deleteApp } = require('./helpers/deleteFolder');
 
 const strapiBin = path.resolve('./packages/strapi/bin/strapi.js');
-let hasAlreadyForcedServerRestart = false;
 const appName = 'testApp';
 let testExitCode = 0;
 let appStart;
@@ -61,26 +60,12 @@ const main = async () => {
   const start = () => {
     return new Promise((resolve, reject) => {
       try {
-        console.log('### STARTING ###');
         shell.cd('./testApp');
         appStart = shell.exec('strapi start', { async: true, silent: true });
         appStart.stdout.on('data', data => {
           if (data.includes('To shut down your server')) {
             shell.cd('..');
-
             return resolve();
-          } else if (
-            data.includes('POST /content-type-builder/model') &&
-            !hasAlreadyForcedServerRestart
-          ) {
-            console.log('RESTART');
-            console.log(data.trim());
-            console.log({ app: appStart.pid });
-            process.kill(appStart.pid);
-            console.log('END RESTART');
-            // hasAlreadyForcedServerRestart = true;
-
-            return start();
           } else {
             console.log(data.trim());
           }
@@ -128,7 +113,6 @@ const main = async () => {
   const cypressTest = () => {
     const config = Object.assign(
       { spec: './packages/strapi-plugin-content-manager/test/front/integration/*' },
-      // { spec: './packages/strapi-plugin-users-permissions/test/front/integration/*' },
       process.env.npm_config_browser === 'true' ? { browser: 'chrome' } : {},
     );
 
