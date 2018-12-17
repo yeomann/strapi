@@ -61,6 +61,7 @@ const main = async () => {
   const start = () => {
     return new Promise((resolve, reject) => {
       try {
+        console.log('### STARTING ###');
         shell.cd('./testApp');
         appStart = shell.exec('strapi start', { async: true, silent: true });
         appStart.stdout.on('data', data => {
@@ -72,9 +73,11 @@ const main = async () => {
             data.includes('POST /content-type-builder/model') &&
             !hasAlreadyForcedServerRestart
           ) {
-            console.log('ooooo');
+            console.log('RESTART');
+            console.log(data.trim());
             process.kill(appStart.pid);
-            hasAlreadyForcedServerRestart = true;
+            console.log('END RESTART');
+            // hasAlreadyForcedServerRestart = true;
 
             return start();
           } else {
@@ -123,7 +126,7 @@ const main = async () => {
 
   const cypressTest = () => {
     const config = Object.assign(
-      { spec: './packages/**/test/front/integration/*' },
+      { spec: './packages/strapi-plugin-content-manager/test/front/integration/*' },
       // { spec: './packages/strapi-plugin-users-permissions/test/front/integration/*' },
       process.env.npm_config_browser === 'true' ? { browser: 'chrome' } : {},
     );
