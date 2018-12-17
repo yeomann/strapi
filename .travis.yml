@@ -27,10 +27,11 @@ install:
 
 before_script:
   - git fetch origin master:master
+  - npm install
 
 script:
-  - npm run lint
-  - npm run doc
+  # - npm run lint
+  # - npm run doc
   - npm run test
 
 cache:
