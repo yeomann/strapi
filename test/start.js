@@ -75,6 +75,7 @@ const main = async () => {
           ) {
             console.log('RESTART');
             console.log(data.trim());
+            console.log({ app: appStart.pid });
             process.kill(appStart.pid);
             console.log('END RESTART');
             // hasAlreadyForcedServerRestart = true;
