@@ -9,6 +9,7 @@ const strapiBin = path.resolve('./packages/strapi/bin/strapi.js');
 const appName = 'testApp';
 let testExitCode = 0;
 let appStart;
+let hasAlreadyForcedRestart = false;
 
 const databases = {
   mongo: `--dbclient=mongo --dbhost=127.0.0.1 --dbport=27017 --dbname=strapi-test-${new Date().getTime()} --dbusername= --dbpassword=`,
@@ -66,6 +67,12 @@ const main = async () => {
           if (data.includes('To shut down your server')) {
             shell.cd('..');
             return resolve();
+          } else if (data.includes('The server is restarting') && !hasAlreadyForcedRestart) {
+            hasAlreadyForcedRestart = true;
+
+            process.kill(appStart.pid);
+
+            return start();
           } else {
             console.log(data.trim());
           }
