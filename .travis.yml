@@ -14,7 +14,7 @@ cache:
   directories:
     - ~/.npm
     - ~/.cache
- override:
+  override:
     - npm ci
     - npm run cy:verify
 
