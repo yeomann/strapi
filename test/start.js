@@ -68,9 +68,9 @@ const main = async () => {
             shell.cd('..');
             return resolve();
           } else if (data.includes('The server is restarting') && !hasAlreadyForcedRestart) {
-            hasAlreadyForcedRestart = true;
-
+            console.log('RESTART FORCE');
             process.kill(appStart.pid);
+            hasAlreadyForcedRestart = true;
 
             return start();
           } else {
