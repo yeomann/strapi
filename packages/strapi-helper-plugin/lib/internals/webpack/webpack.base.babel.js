@@ -220,7 +220,7 @@ module.exports = options => {
             },
             {
               test: /\.scss$/,
-              include: foldersToInclude,
+              // include: foldersToInclude,
               use: extractSass.extract({
                 use: [
                   {

@@ -230,6 +230,13 @@ module.exports = require('./webpack.base.babel')({
       'node_modules',
       'react-dnd-html5-backend',
     ),
+    'strapi-compo': path.resolve(
+      rootAdminpath,
+      'node_modules',
+      'strapi-helper-plugin',
+      'node_modules',
+      'strapi-compo',
+    ),
   },
 
   // Emit a source map for easier debugging

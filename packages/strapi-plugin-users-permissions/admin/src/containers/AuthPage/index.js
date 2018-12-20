@@ -18,7 +18,8 @@ import LogoStrapi from 'assets/images/logo_strapi.png';
 
 // Design
 import Button from 'components/Button';
-import Input from 'components/InputsIndex';
+// import Input from 'components/InputsIndex';
+import Input from 'components/Inputs';
 
 // Utils
 import auth from 'utils/auth';
