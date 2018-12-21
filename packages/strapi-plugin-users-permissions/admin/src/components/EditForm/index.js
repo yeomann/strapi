@@ -10,7 +10,8 @@ import { get } from 'lodash';
 import cn from 'classnames';
 
 import LoadingIndicator from 'components/LoadingIndicator';
-import Input from 'components/InputsIndex';
+// import Input from 'components/InputsIndex';
+import Input from 'components/Inputs';
 
 import styles from './styles.scss';
 

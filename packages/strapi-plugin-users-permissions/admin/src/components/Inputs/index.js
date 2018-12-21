@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import InputsIndex from 'strapi-compo';
+import { InputsIndex } from 'strapi-compo';
 import FormattedErrors from './FormattedErrors';
+import FormattedInputDescription from './FormattedInputDescription';
 import FormattedLabel from './FormattedLabel';
 import FormattedPlaceholder from './FormattedPlaceholder';
 
 
-function Inputs({ errors, label, noErrorsDescription, placeholder, ...rest}) {
+function Inputs({ errors, inputDescription, label, noErrorsDescription, placeholder, ...rest}) {
   return (
     <FormattedLabel label={label}>
       {label => {
@@ -20,13 +21,22 @@ function Inputs({ errors, label, noErrorsDescription, placeholder, ...rest}) {
                   {errorMessage => {
                     
                     return (
-                      <InputsIndex
-                        error={!isEmpty(errorMessage)}
-                        errorMessage={noErrorsDescription ? '' : errorMessage}
-                        label={label}
-                        placeholder={placeholder}
-                        {...rest}
-                      />
+                      <FormattedInputDescription inputDescription={inputDescription}>
+                        {msg => {
+
+                          return (
+                            <InputsIndex
+                              error={!isEmpty(errorMessage)}
+                              errorMessage={noErrorsDescription ? '' : errorMessage}
+                              inputDescription={msg}
+
+                              label={label}
+                              placeholder={placeholder}
+                              {...rest}
+                            />
+                          );
+                        }}
+                      </FormattedInputDescription>
                     );
                   }}
                 </FormattedErrors>

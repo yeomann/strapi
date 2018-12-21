@@ -26,7 +26,8 @@ import {
 // Translations
 import en from 'translations/en.json';
 
-import Input from 'components/InputsIndex';
+// import Input from 'components/InputsIndex';
+import Input from 'components/Inputs';
 
 import styles from './styles.scss';
 

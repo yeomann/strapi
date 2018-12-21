@@ -11,7 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import { get, isEmpty, map, takeRight, toLower, without } from 'lodash';
 
 import BoundRoute from 'components/BoundRoute';
-import Input from 'components/InputsIndex';
+// import Input from 'components/InputsIndex';
+import Input from 'components/Inputs';
 
 import styles from './styles.scss';
 

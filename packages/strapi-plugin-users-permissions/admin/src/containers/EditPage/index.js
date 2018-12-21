@@ -15,7 +15,8 @@ import cn from 'classnames';
 
 // Design
 import BackHeader from 'components/BackHeader';
-import Input from 'components/InputsIndex';
+// import Input from 'components/InputsIndex';
+import Input from 'components/Inputs';
 import InputSearch from 'components/InputSearchContainer';
 import LoadingIndicator from 'components/LoadingIndicator';
 import LoadingIndicatorPage from 'components/LoadingIndicatorPage';
