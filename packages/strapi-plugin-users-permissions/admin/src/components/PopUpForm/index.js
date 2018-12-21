@@ -24,7 +24,7 @@ import {
 } from 'lodash';
 
 // Translations
-import en from 'translations/en.json';
+// import en from 'translations/en.json';
 
 // import Input from 'components/InputsIndex';
 import Input from 'components/Inputs';

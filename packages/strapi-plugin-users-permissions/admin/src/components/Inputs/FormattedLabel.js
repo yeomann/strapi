@@ -5,9 +5,13 @@ import { FormattedMessage } from 'react-intl';
 function FormattedLabel({ children, label }) {
   if (typeof label === 'object') {
     return (
-      <FormattedMessage id={label.id}>
-        {msg => children(msg)}
-      </FormattedMessage>
+      children(
+        <FormattedMessage
+          id={label.id}
+          defaultMessage={label.id}
+          values={label.parasms}
+        />
+      )
     );
   }
 
@@ -28,7 +32,10 @@ FormattedLabel.propTypes = {
   label: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.string,
-    PropTypes.object,
+    PropTypes.shape({
+      id: PropTypes.string,
+      params: PropTypes.object,
+    }),
   ]),
 };
 
