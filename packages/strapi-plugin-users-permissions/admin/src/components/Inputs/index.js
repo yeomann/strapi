@@ -1,14 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { FormattedMessage } from 'react-intl';
 import { InputsIndex } from 'strapi-compo';
 import FormattedErrors from './FormattedErrors';
 import FormattedInputDescription from './FormattedInputDescription';
 import FormattedLabel from './FormattedLabel';
 import FormattedPlaceholder from './FormattedPlaceholder';
 
+function generateMessageId({ id, name, value }) {
+  if (!isEmpty(id)) {
+    return id;
+  }
 
-function Inputs({ errors, inputDescription, label, noErrorsDescription, placeholder, ...rest}) {
+  if (!isEmpty(name)) {
+    return name;
+  }
+
+  // NOTE: Some plugins uses name to set i18n
+  return value; 
+}
+
+const formatWithOptions = (options) => {
+  return options.map((option) => {
+    const messageId = generateMessageId(option);
+
+    return (
+      <FormattedMessage id={messageId} key={messageId} defaultMessage={messageId} values={option.params}>
+        {msg  => <option value={option.value}>{msg}</option>}
+      </FormattedMessage>
+    );
+  });
+};
+
+
+function Inputs({ errors, inputDescription, label, noErrorsDescription, placeholder, selectOptions, ...rest}) {
+  const inputSelectOptions = typeof selectOptions === 'object' ? formatWithOptions(selectOptions) : selectOptions;
+
   return (
     <FormattedLabel label={label}>
       {label => {
@@ -29,7 +57,7 @@ function Inputs({ errors, inputDescription, label, noErrorsDescription, placehol
                               error={!isEmpty(errorMessage)}
                               errorMessage={noErrorsDescription ? '' : errorMessage}
                               inputDescription={msg}
-
+                              options={inputSelectOptions}
                               label={label}
                               placeholder={placeholder}
                               {...rest}
