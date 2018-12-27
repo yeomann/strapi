@@ -21,6 +21,17 @@ function generateMessageId({ id, name, value }) {
   return value; 
 }
 
+const translatedErrors = {
+  email: <FormattedMessage id="components.Input.error.validation.email" />,
+  json: <FormattedMessage id="components.Input.error.validation.json" />,
+  max: <FormattedMessage id="components.Input.error.validation.max" />,
+  maxLength: <FormattedMessage id="components.Input.error.validation.maxLength" />,
+  min: <FormattedMessage id="components.Input.error.validation.min" />,
+  minLength: <FormattedMessage id="components.Input.error.validation.minLength" />,
+  required: <FormattedMessage id="components.Input.error.validation.required" />,
+  regex: <FormattedMessage id="components.Input.error.validation.regex" />,
+};
+
 const formatWithOptions = (options) => {
   return options.map((option) => {
     const messageId = generateMessageId(option);
@@ -32,7 +43,6 @@ const formatWithOptions = (options) => {
     );
   });
 };
-
 
 function Inputs({ errors, inputDescription, label, noErrorsDescription, placeholder, selectOptions, ...rest}) {
   const inputSelectOptions = typeof selectOptions === 'object' ? formatWithOptions(selectOptions) : selectOptions;
@@ -60,6 +70,7 @@ function Inputs({ errors, inputDescription, label, noErrorsDescription, placehol
                               options={inputSelectOptions}
                               label={label}
                               placeholder={placeholder}
+                              translatedErrors={translatedErrors}
                               {...rest}
                             />
                           );
