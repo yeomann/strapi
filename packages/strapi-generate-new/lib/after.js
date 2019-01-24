@@ -161,11 +161,16 @@ module.exports = (scope, cb) => {
 
     installPlugin
       .then(() => {
+        console.log(`${green(availableDependencies)}`);
         // Link dependencies.
         availableDependencies.forEach(dependency => {
           loader = ora(`Link ${cyan(dependency.key)} dependency to the project.`).start();
-
+          
+          console.log(`${green(dependency)}`);
+          console.log(`${green(scope)}`);
+          
           if (dependency.global) {
+            console.log(`${green(`dependency.global ${dependency.global}`)}`);
             try {
               fs.accessSync(dependency.path, fs.constants.R_OK | fs.constants.F_OK);
               fs.symlinkSync(dependency.path, path.resolve(scope.rootPath, 'node_modules', dependency.key), 'dir');
@@ -173,6 +178,7 @@ module.exports = (scope, cb) => {
               // Silent.
             }
           } else {
+            console.log(`${green(`dependency.global ELSE ${dependency.global}`)}`);
             try {
               fs.accessSync(path.resolve(scope.strapiRoot, 'node_modules', dependency.key), fs.constants.R_OK | fs.constants.F_OK);
               fs.symlinkSync(path.resolve(scope.strapiRoot, 'node_modules', dependency.key), path.resolve(scope.rootPath, 'node_modules', dependency.key), 'dir');
